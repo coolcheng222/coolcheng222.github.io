@@ -6,15 +6,28 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/7 | Sealll.blog</title>
+  <title>git/github随笔 | Sealll.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sealll.blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/07/index.html">
+  <meta name="description" content="GIT&#x2F;GITHUB  一. GIT简介Linus(linux创始人)用C语言做了一个分布式版本控制系统GIT  Linus: Talks cheap,show me your code.  1. 优势 大部分操作在本地完成,不需要联网 完整性保证 尽可能添加数据而不是删除或修改 分支操作更流畅 与linux命令兼容">
+<meta property="og:type" content="article">
+<meta property="og:title" content="git&#x2F;github随笔">
+<meta property="og:url" content="http://yoursite.com/2020/07/06/github/index.html">
 <meta property="og:site_name" content="Sealll.blog">
+<meta property="og:description" content="GIT&#x2F;GITHUB  一. GIT简介Linus(linux创始人)用C语言做了一个分布式版本控制系统GIT  Linus: Talks cheap,show me your code.  1. 优势 大部分操作在本地完成,不需要联网 完整性保证 尽可能添加数据而不是删除或修改 分支操作更流畅 与linux命令兼容">
 <meta property="og:locale" content="ch">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200406154125186.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200410152320710.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200415120743498.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200415121045071.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200415121138389.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/06/github/image-20200420141253658.png">
+<meta property="article:published_time" content="2020-07-06T07:10:01.000Z">
+<meta property="article:modified_time" content="2020-07-06T07:26:39.484Z">
 <meta property="article:author" content="sealll">
+<meta property="article:tag" content="git">
+<meta property="article:tag" content="早期作品">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/06/github/image-20200406154125186.png">
   
     <link rel="alternative" href="/atom.xml" title="Sealll.blog" type="application/atom+xml">
   
@@ -142,36 +155,233 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-github" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/06/github/" class="archive-article-date">
-  	<time datetime="2020-07-06T07:10:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/06/github/">git/github随笔</a>
+    <h1 class="article-title" itemprop="name">
+      git/github随笔
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/07/06/github/" class="archive-article-date">
+  	<time datetime="2020-07-06T07:10:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1><span id="gitgithub">GIT/GITHUB</span></h1><blockquote>
+</blockquote>
+<h2><span id="一-git简介">一. GIT简介</span></h2><p>Linus(linux创始人)用C语言做了一个<strong>分布式版本控制系统GIT</strong></p>
+<blockquote>
+<p>Linus: Talks cheap,show me your code.</p>
+</blockquote>
+<h3><span id="1-优势">1. 优势</span></h3><ul>
+<li>大部分操作在本地完成,不需要联网</li>
+<li>完整性保证</li>
+<li>尽可能添加数据而不是删除或修改</li>
+<li>分支操作更流畅</li>
+<li>与linux命令兼容</li>
+</ul>
+<a id="more"></a>
+
+<h3><span id="2-本地结构">2. 本地结构</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A[工作区]--&gt;|git add|B[暂存区]--&gt;|git commit|C[本地库]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>工作区 : 写代码</li>
+<li>暂存区 : 打算提交,可以撤回的暂存地</li>
+<li>本地库 : 历史版本</li>
+</ul>
+<h3><span id="3-git和代码托管中心">3. GIT和代码托管中心</span></h3><p>代码托管中心的任务是<strong>维护远程库</strong></p>
+<ul>
+<li>局域网环境下,我们有<strong>GitLab</strong>代码托管中心</li>
+<li>外网环境下,我们有<strong>Github和码云</strong></li>
+</ul>
+<h3><span id="4-本地库和远程库">4. 本地库和远程库</span></h3><p>两者的交互场景分为<strong>团队内部协作</strong>,<strong>跨团队协作</strong>.</p>
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">title(&quot;团队内协作&quot;)</span><br><span class="line">A[&quot;本地库(主)&quot;]--&gt;|push|B[&quot;远程库(代码托管中心)&quot;]</span><br><span class="line">B--&gt;|clone|C[&quot;本地库(别的)&quot;]</span><br><span class="line">C--&gt;|加入|D[团队]--&gt;|push|B</span><br><span class="line">B--&gt;|pull|A</span><br></pre></td></tr></table></figure>
+
+<hr>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">title(&quot;跨团队协作&quot;)</span><br><span class="line">A[远程库]--&gt;|fork|B[&quot;远程库(团队外)&quot;]</span><br><span class="line">B--&gt;|clone|C[&quot;本地库(团队外)&quot;]--&gt;|push|B</span><br><span class="line">B--&gt;|pull request+审核+merge|A</span><br><span class="line">A--&gt;|pull|D[本地库]</span><br></pre></td></tr></table></figure>
+
+<h2><span id="二-git命令行操作">二. GIT命令行操作</span></h2><h3><span id="1-本地库初始化">1. 本地库初始化</span></h3><ul>
+<li><strong>命令</strong>: </li>
+</ul>
+<h4><span id="11-初始化">1.1 初始化</span></h4><ul>
+<li>可以在任意目录右键打开<code>git bash</code>,在里面可以使用linux命令</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init <span class="comment">#本地库初始化 创建.git/目录</span></span><br><span class="line"></span><br><span class="line">$ ls .git/</span><br><span class="line">config  description  HEAD  hooks/  info/  objects/  refs/</span><br><span class="line"><span class="comment">#存放与本地库相关的子目录和文件,不要删改</span></span><br></pre></td></tr></table></figure>
+
+<h4><span id="12-设置签名">1.2 设置签名</span></h4><ul>
+<li><p><strong>形式</strong>: </p>
+<ul>
+<li>用户名:TOm</li>
+<li>email地址: good@bala</li>
+</ul>
+</li>
+<li><p><strong>作用</strong> : 区分开发人员身份</p>
+</li>
+<li><p>和登录的账号密码没关系</p>
+</li>
+<li><p><strong>分类</strong>:</p>
+<ul>
+<li>__项目级别/仓库级别 __:  仅在当前本地库范围有效</li>
+<li>__系统用户级别 __: 登录当前操作系统的用户范围</li>
+<li><em>项目级别优先于系统用户级别(就近原则)</em></li>
+<li>二者必须有其一</li>
+</ul>
+</li>
+<li><p><strong>命令</strong></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">git config user.name 用户名 </span><br><span class="line">git config user.emai 邮箱</span><br><span class="line"><span class="comment">#项目级别</span></span><br><span class="line"></span><br><span class="line">git config --global  user.name 用户名</span><br><span class="line">git config --global user.email 邮箱</span><br><span class="line"><span class="comment">#系统用户级别</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>信息位置</strong>:<code>.git/config的user栏</code>(项目级别</p>
+<p>) 或 <code>家目录的.gitconfig</code>(系统用户级别)</p>
+</li>
+</ul>
+<hr>
+<h3><span id="2-具体的git命令">2. 具体的git命令</span></h3><ul>
+<li>基础操作</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git status  <span class="comment">#查看当前状态</span></span><br><span class="line">git add 文件名 <span class="comment">#将文件放到暂存区,会改变换行符</span></span><br><span class="line">git rm --cached 文件名 <span class="comment">#将文件从暂存区撤回</span></span><br><span class="line">git commit 文件名 <span class="comment">#提交文件,进入注释页面(vim编辑器)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>提交后操作</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add 文件名--&gt;</span><br><span class="line">git commit -m <span class="string">"标题"</span> 文件 <span class="comment">#不进文本编辑器</span></span><br><span class="line"><span class="comment">#</span></span><br><span class="line">git commit -a</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3><span id="3-版本的前进后退">3. 版本的前进后退</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">log</span> <span class="comment">#查看历史提交信息,head指向当前版本</span></span><br><span class="line">git <span class="built_in">log</span> --pretty=oneline <span class="comment"># 美观输出</span></span><br><span class="line">git reflog <span class="comment">#一样,显示指针移动数</span></span><br></pre></td></tr></table></figure>
+
+<p>本质: head指向谁,谁就是当前版本</p>
+<h4><span id="31-基于索引值的操作">3.1 基于索引值的操作</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard 索引值 <span class="comment">#到xx版本</span></span><br><span class="line">git reset --hard f85183c <span class="comment">#举例</span></span><br></pre></td></tr></table></figure>
+
+
+
+<h4><span id="32-使用符号">3.2 使用^符号</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard head^^^ <span class="comment">#有几个^退几行</span></span><br></pre></td></tr></table></figure>
+
+<p>只能回退</p>
+<h4><span id="32-使用~符号">3.2 使用~符号</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git reset --hard head~n <span class="comment">#回退n步</span></span><br></pre></td></tr></table></figure>
+
+<h4><span id="33-reset选项说明">3.3 reset选项说明</span></h4><p><code>--soft</code> :仅在本地库移动指针</p>
+<p><code>--mixed</code>: 在本地库移动,重置暂存区</p>
+<p><code>--hard</code>:在本地库移动,重置暂存区和工作区</p>
+<h4><span id="34-文件比较">3.4 文件比较</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git diff 文件 <span class="comment">#在工作区改后,未交暂存区时,显示改变</span></span><br><span class="line">git diff 历史版本 文件名 <span class="comment">#两者比较</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h3><span id="4-分支管理">4. 分支管理</span></h3><p><strong>分支</strong>(brench): 在版本控制过程中,使用多条线同时推进多个任务.</p>
+<p>特点: 同时进行,互不影响 ; 失败了也不影响主干</p>
+<p><img src="/2020/07/06/github/image-20200406154125186.png" alt="image-20200406154125186"></p>
+<p>在<code>git status</code>的第一行就是分支信息<code>on branch master</code></p>
+<h4><span id="41-分支操作">4.1 分支操作</span></h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git branch -v <span class="comment">#查看分支</span></span><br><span class="line">git branch 分支名 <span class="comment">#创建分支</span></span><br><span class="line"></span><br><span class="line">git checkout 分支名 <span class="comment">#切换分支</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>合并操作</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到接收修改的分支上</span></span><br><span class="line">git checkout master</span><br><span class="line"></span><br><span class="line"><span class="comment">#合并</span></span><br><span class="line">git merge 分支名</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>解决冲突</strong>:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Auto-merging aaa.txt</span><br><span class="line">CONFLICT (content): Merge conflict <span class="keyword">in</span> aaa.txt</span><br><span class="line">Automatic merge failed; fix conflicts and <span class="keyword">then</span> commit the result.</span><br><span class="line"><span class="comment">#合并时报错信息,切换为手动合并</span></span><br><span class="line">carrzhou@DESKTOP-0HHSOG5 MINGW64 /e/gitwork/WeChat (hoy_fix|MERGING)</span><br><span class="line"><span class="comment">#新的状态:(hoy_fix|MERGING)</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开文件,手动选择</span></span><br><span class="line">aaaaa</span><br><span class="line">bbbbb</span><br><span class="line">ccccc</span><br><span class="line">ddddd</span><br><span class="line">edit by hotfix</span><br><span class="line">&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD</span><br><span class="line">edit by hoyfix</span><br><span class="line">=======             <span class="comment">#6-8行是当前文件的状态</span></span><br><span class="line">edit by master</span><br><span class="line"></span><br><span class="line">&gt;&gt;&gt;&gt;&gt;&gt;&gt; master      <span class="comment">#9-11行是另一个分支的内容</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#此时文件内容</span></span><br><span class="line"><span class="comment">#将文件的内容编辑保存即可</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑完成后,用git add解决</span></span><br><span class="line">git add 文件</span><br><span class="line">git commit <span class="comment">#结束合并状态</span></span><br></pre></td></tr></table></figure>
+
+<hr>
+</li>
+</ul>
+<h2><span id="三-git的基本原理">三. Git的基本原理</span></h2><h3><span id="1-hash">1. hash</span></h3><ul>
+<li><p>加密</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">graph LR</span><br><span class="line">A(明文)--&gt;B[加密算法]</span><br><span class="line">B--&gt;C(密文)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>hash</strong>属于加密算法.其<strong>特点</strong>:</p>
+<blockquote>
+<ol>
+<li>不管输入数据量多大,同一个hash算法,得到的<u>结果长度固定</u></li>
+<li>算法具有确定性,同一个数据,<u>输出数据不变.</u></li>
+<li>算法确定的前提下,输入数据变化,输出数据<u>一定有变化.</u>(可以用于检验文件损坏)</li>
+<li>hash算法是<u>不可逆</u>的.</li>
+</ol>
+</blockquote>
+</li>
+<li><p>包括:<code>SHA-1</code>,<code>md5</code>,<code>CRC32</code></p>
+</li>
+</ul>
+<hr>
+<h3><span id="2-git保存版本的机制">2. Git保存版本的机制</span></h3><h4><span id="21-icn集中式版本控制工具的文件管理机制">2.1 ICN集中式版本控制工具的文件管理机制</span></h4><p>(并非git)每个版本保存所做的修改,想要某个历史版本,就拿当前版本修改+历史版本+原始文件拼在一起</p>
+<p><strong>增量式保存</strong></p>
+<h4><span id="22-git的文件管理机制">2.2 git的文件管理机制</span></h4><p>保存的是小型文件的一组快照,提交更新时会制作快照并添加索引</p>
+<hr>
+<h2><span id="四-和github远程库">四. 和github远程库</span></h2><p>github上创建远程库并进入,记住一个网址</p>
+<p><img src="/2020/07/06/github/image-20200410152320710.png" alt="image-20200410152320710"></p>
+<h3><span id="1-在本地库连接远程库">1. 在本地库连接远程库</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">git remote -v <span class="comment">#查看连接的远程库</span></span><br><span class="line">git remote add 别名 地址 <span class="comment">#将远程库添加到git并赋予别名</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="2-推送">2. 推送</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push 别名 分支名 <span class="comment">#把分支推送到远程库</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="3-克隆">3. 克隆</span></h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#把远程库克隆到别人的本地库</span></span><br><span class="line">git <span class="built_in">clone</span> 远程地址 <span class="comment">#在别人的本地库使用(远程地址在clone/download界面)</span></span><br></pre></td></tr></table></figure>
+
+<p>三个效果:</p>
+<ul>
+<li>完整的把远程库下载到本地</li>
+<li>创建远程地址别名origin</li>
+<li>初始化本地库</li>
+</ul>
+<h3><span id="4-加入团队">4. 加入团队</span></h3><p>在github里用.</p>
+<h3><span id="5-拉取pull">5. 拉取(pull)</span></h3><p>fetch和merge的结合体</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">git fetch 别名 分支 <span class="comment">#从远程库抓取分支</span></span><br><span class="line">git checkout <span class="string">'别名/分支名'</span> <span class="comment">#检查分支</span></span><br><span class="line"></span><br><span class="line">git merge <span class="string">'别名/分支名'</span> <span class="comment">#合并,拉取完毕</span></span><br><span class="line"></span><br><span class="line">git pull 别名 分支 <span class="comment">#一步到位</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>冲突的解决</strong>:<ul>
+<li>推送不上去</li>
+<li>当先git pull拉取,就进入了merge状态</li>
+<li>之后用上面的冲突解决</li>
+<li>提交时不带文件名</li>
+</ul>
+</li>
+</ul>
+<h3><span id="6-跨团队协作">6. 跨团队协作</span></h3><p>在远程库点一下fork,再clone到本地</p>
+<p>推送回来后点pull request,new pull request</p>
+<p>然后主远程库看pull request观察</p>
+<hr>
+<p><img src="/2020/07/06/github/image-20200415120743498.png" alt="image-20200415120743498"></p>
+<p><img src="/2020/07/06/github/image-20200415121045071.png" alt="image-20200415121045071"></p>
+<p><img src="/2020/07/06/github/image-20200415121138389.png" alt="image-20200415121138389"></p>
+<hr>
+<h2><span id="git流">Git流</span></h2><p><img src="/2020/07/06/github/image-20200420141253658.png" alt="image-20200420141253658"></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -187,19 +397,96 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/07/06/github/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
-  
-  
-    </div></section>
+
   
 
-    
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+  
+  
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -222,8 +509,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
