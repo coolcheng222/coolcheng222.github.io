@@ -15,16 +15,16 @@
 <meta property="og:site_name" content="Sealll.blog">
 <meta property="og:description" content="前几天刚学了maven基本知识, 正好今天想照着mybatis官方的pdf来一个quick start,于是打算用这个机会来实践一下maven工程. 开发工具: idea  踩了很多不该踩的坑,记录一下,防止来来回回的踩.">
 <meta property="og:locale" content="ch">
-<meta property="og:image" content="http://yoursite.com/2020/07/08/mavenbuild/pics/mavenbuild/image-20200708211947536.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211947536.png">
 <meta property="article:published_time" content="2020-07-08T11:40:00.000Z">
-<meta property="article:modified_time" content="2020-07-08T13:55:28.177Z">
+<meta property="article:modified_time" content="2020-07-11T07:49:30.122Z">
 <meta property="article:author" content="sealll">
 <meta property="article:tag" content="早期作品">
 <meta property="article:tag" content="maven">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="犯蠢集锦">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/08/mavenbuild/pics/mavenbuild/image-20200708211947536.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211947536.png">
   
     <link rel="alternative" href="/atom.xml" title="Sealll.blog" type="application/atom+xml">
   
@@ -190,7 +190,7 @@
 <li><p>1号坑</p>
 <ul>
 <li><pre><code>Could not find artifact junit:junit:pom:4.0.12 in ...(指仓库id)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    这个问题还挺让人摸不着头脑的,第一次报的是这个错,第二次开始报的又是另一个错&#96;Cannot resolve junit:junit:4.0.12&#96;. 这种报错的方式很容易想到缓存机制,所以就去本地仓库里看了看,junit文件夹下确实有一个&#96;4.0.12&#96;文件夹,里面打开一看就两个.lastUpdate后缀的文件,就尝试着把文件夹删了,果然报错信息又回到了第一个版本.</span><br><span class="line">  </span><br><span class="line">  * 后来了解到是__版本号写错了__~~(4.12)~~,对于**在各种仓库找不到的依赖**,是这样处理的</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">### 2. test测试</span><br><span class="line"></span><br><span class="line">确认依赖无误以后,先保证测试模块能够正常运作. 于是对test文件夹做了点操作</span><br><span class="line"></span><br><span class="line">![image-20200708211305624](..&#x2F;pics&#x2F;mavenbuild&#x2F;image-20200708211305624.png) </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">&#x2F;&#x2F;Hello.java 内容如下</span><br><span class="line">public class Hello &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        System.out.println(&quot;Hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    这个问题还挺让人摸不着头脑的,第一次报的是这个错,第二次开始报的又是另一个错&#96;Cannot resolve junit:junit:4.0.12&#96;. 这种报错的方式很容易想到缓存机制,所以就去本地仓库里看了看,junit文件夹下确实有一个&#96;4.0.12&#96;文件夹,里面打开一看就两个.lastUpdate后缀的文件,就尝试着把文件夹删了,果然报错信息又回到了第一个版本.</span><br><span class="line">  </span><br><span class="line">  * 后来了解到是__版本号写错了__~~(4.12)~~,对于**在各种仓库找不到的依赖**,是这样处理的</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">### 2. test测试</span><br><span class="line"></span><br><span class="line">确认依赖无误以后,先保证测试模块能够正常运作. 于是对test文件夹做了点操作</span><br><span class="line"></span><br><span class="line">![image-20200708211305624](image-20200708211305624.png) </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">&#x2F;&#x2F;Hello.java 内容如下</span><br><span class="line">public class Hello &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        System.out.println(&quot;Hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </code></pre></li>
 </ul>
 </li>
@@ -205,7 +205,7 @@
 <ul>
 <li><p>一开始以为mvn test它就是不给我看输出的,感觉有点不人性化,应该有什么方法能看到输出.</p>
 </li>
-<li><p>然后去网上一查,告诉我target下面会有输出日志,找<code>surefire-reports</code>就行了.然后发现连这个日志都没有给我<br><img src="/2020/07/08/mavenbuild/pics/mavenbuild/image-20200708211947536.png" alt="image-20200708211947536"> </p>
+<li><p>然后去网上一查,告诉我target下面会有输出日志,找<code>surefire-reports</code>就行了.然后发现连这个日志都没有给我<br><img src="/2020/07/08/mavenbuild/image-20200708211947536.png" alt="image-20200708211947536"> </p>
 </li>
 <li><p>冷静分析,忽然想到之前跟着学maven的时候测试都会给我测试结果:</p>
  <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">-------------------------------------------------------</span><br><span class="line"> T E S T S</span><br><span class="line">-------------------------------------------------------</span><br><span class="line">Running com.at.maven.HelloTest</span><br><span class="line">Tests run: <span class="number">1</span>, Failures: <span class="number">0</span>, Errors: <span class="number">0</span>, Skipped: <span class="number">0</span>, Time elapsed: <span class="number">0.028</span> sec</span><br><span class="line"></span><br><span class="line">Results :</span><br><span class="line"></span><br><span class="line">Tests run: <span class="number">1</span>, Failures: <span class="number">0</span>, Errors: <span class="number">0</span>, Skipped: <span class="number">0</span></span><br></pre></td></tr></table></figure>
