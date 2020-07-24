@@ -15,16 +15,17 @@
 <meta property="og:site_name" content="Sealll.blog">
 <meta property="og:description" content="前几天刚学了maven基本知识, 正好今天想照着mybatis官方的pdf来一个quick start,于是打算用这个机会来实践一下maven工程. 开发工具: idea  踩了很多不该踩的坑,记录一下,防止来来回回的踩.">
 <meta property="og:locale" content="ch">
+<meta property="og:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211305624.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211947536.png">
 <meta property="article:published_time" content="2020-07-08T11:40:00.000Z">
-<meta property="article:modified_time" content="2020-07-11T07:49:30.122Z">
+<meta property="article:modified_time" content="2020-07-24T14:43:16.366Z">
 <meta property="article:author" content="sealll">
 <meta property="article:tag" content="早期作品">
 <meta property="article:tag" content="maven">
 <meta property="article:tag" content="java">
 <meta property="article:tag" content="犯蠢集锦">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211947536.png">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/08/mavenbuild/image-20200708211305624.png">
   
     <link rel="alternative" href="/atom.xml" title="Sealll.blog" type="application/atom+xml">
   
@@ -191,13 +192,18 @@
 <h3><span id="1-编写pomxml">1. 编写pom.xml</span></h3><p>这单纯是一个在<a href="https://mvnrepository.com" target="_blank" rel="noopener">mvnrepository.com</a>搜索并复制坐标的过程. </p>
 <ul>
 <li><p>1号坑</p>
-<ul>
-<li><pre><code>Could not find artifact junit:junit:pom:4.0.12 in ...(指仓库id)
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">    这个问题还挺让人摸不着头脑的,第一次报的是这个错,第二次开始报的又是另一个错&#96;Cannot resolve junit:junit:4.0.12&#96;. 这种报错的方式很容易想到缓存机制,所以就去本地仓库里看了看,junit文件夹下确实有一个&#96;4.0.12&#96;文件夹,里面打开一看就两个.lastUpdate后缀的文件,就尝试着把文件夹删了,果然报错信息又回到了第一个版本.</span><br><span class="line">  </span><br><span class="line">  * 后来了解到是__版本号写错了__~~(4.12)~~,对于**在各种仓库找不到的依赖**,是这样处理的</span><br><span class="line">  </span><br><span class="line"></span><br><span class="line">### 2. test测试</span><br><span class="line"></span><br><span class="line">确认依赖无误以后,先保证测试模块能够正常运作. 于是对test文件夹做了点操作</span><br><span class="line"></span><br><span class="line">![image-20200708211305624](image-20200708211305624.png) </span><br><span class="line"></span><br><span class="line">&#96;&#96;&#96;java</span><br><span class="line">&#x2F;&#x2F;Hello.java 内容如下</span><br><span class="line">public class Hello &#123;</span><br><span class="line">    @Test</span><br><span class="line">    public void test1()&#123;</span><br><span class="line">        System.out.println(&quot;Hello&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</code></pre></li>
-</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Could not find artifact junit:junit:pom:4.0.12 in ...(指仓库id)</span><br></pre></td></tr></table></figure>
+
 </li>
 </ul>
+<p>???这个问题还挺让人摸不着头脑的,第一次报的是这个错,第二次开始报的又是另一个错<code>Cannot resolve junit:junit:4.0.12</code>. 这种报错的方式很容易想到缓存机制,所以就去本地仓库里看了看,junit文件夹下确实有一个<code>4.0.12</code>文件夹,里面打开一看就两个.lastUpdate后缀的文件,就尝试着把文件夹删了,果然报错信息又回到了第一个版本.</p>
+<ul>
+<li>后来了解到是<strong>版本号写错了</strong><del>(4.12)</del>,对于<strong>在各种仓库找不到的依赖</strong>,是这样处理的</li>
+</ul>
+<h3><span id="2-test测试">2. test测试</span></h3><p>确认依赖无误以后,先保证测试模块能够正常运作. 于是对test文件夹做了点操作</p>
+<p><img src="/2020/07/08/mavenbuild/image-20200708211305624.png" alt="image-20200708211305624"> </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Hello.java 内容如下</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> </span>&#123;</span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test1</span><span class="params">()</span></span>&#123;</span><br><span class="line">        System.out.println(<span class="string">"Hello"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p><del>只要在输出框框里看到Hello就是我的胜利.</del>所以就这样mvn test了</p>
 <p>结果相当好看:</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[INFO] --- maven-surefire-plugin:<span class="number">2.12</span><span class="number">.4</span>:test (<span class="keyword">default</span>-test) @ maven1 ---</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] BUILD SUCCESS</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br><span class="line">[INFO] Total time: <span class="number">1.626</span> s</span><br><span class="line">[INFO] Finished at: <span class="number">2020</span>-<span class="number">07</span>-<span class="number">08</span>T21:<span class="number">15</span>:<span class="number">17</span>+<span class="number">08</span>:<span class="number">00</span></span><br><span class="line">[INFO] Final Memory: <span class="number">11</span>M/<span class="number">44</span>M</span><br><span class="line">[INFO] ------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
@@ -386,7 +392,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">1. 编写pom.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">3. 总结</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">1. 编写pom.xml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">2. test测试</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">3. 总结</span></a></li></ol>
                     </div>
                 </span>
             </div>
