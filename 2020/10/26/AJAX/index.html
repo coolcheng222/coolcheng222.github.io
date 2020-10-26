@@ -6,13 +6,17 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives: 2020/10 | Sealll.blog</title>
+  <title>AJAX | Sealll.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sealll.blog">
-<meta property="og:url" content="http://yoursite.com/archives/2020/10/index.html">
+  <meta name="description" content="AJAX一. 是啥1. 是啥AJAX(Asynchronous Javascript And XML)异步JS和XML,是指一种创建交互式网页应用的网页开发技术 ajax是一种浏览器通过js异步发起请求,局部更新页面的技术 2. 交互">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AJAX">
+<meta property="og:url" content="http://yoursite.com/2020/10/26/AJAX/index.html">
 <meta property="og:site_name" content="Sealll.blog">
+<meta property="og:description" content="AJAX一. 是啥1. 是啥AJAX(Asynchronous Javascript And XML)异步JS和XML,是指一种创建交互式网页应用的网页开发技术 ajax是一种浏览器通过js异步发起请求,局部更新页面的技术 2. 交互">
 <meta property="og:locale" content="ch">
+<meta property="article:published_time" content="2020-10-26T13:32:13.989Z">
+<meta property="article:modified_time" content="2020-10-26T13:34:10.514Z">
 <meta property="article:author" content="sealll">
 <meta name="twitter:card" content="summary">
   
@@ -146,91 +150,335 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-AJAX" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
   
+    <h1 class="article-title" itemprop="name">
+      AJAX
+    </h1>
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/26/AJAX/" class="archive-article-date">
+
+        
+        <a href="/2020/10/26/AJAX/" class="archive-article-date">
   	<time datetime="2020-10-26T13:32:13.989Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
 </a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/26/AJAX/">AJAX</a>
-    </h1>
-  
+              <br/><small id="busuanzi_container_page_pv" style="font-size: 10px">
+                  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+              </small>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1><span id="ajax">AJAX</span></h1><h2><span id="一-是啥">一. 是啥</span></h2><h3><span id="1-是啥">1. 是啥</span></h3><p><code>AJAX</code>(Asynchronous Javascript And XML)<code>异步JS和XML</code>,是指一种创建交互式网页应用的网页开发技术</p>
+<p>ajax是一种浏览器通过js<strong>异步</strong>发起请求,局部更新页面的技术</p>
+<h3><span id="2-交互">2. 交互</span></h3><a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
-          
+<p>传统得交互方式: 由浏览器发出请求,服务器返回整个界面</p>
+<p>Ajax交互方式:由JS的<strong>XMLHttpRequest对象</strong>发送请求,不惊动浏览器,简称<code>XHR</code></p>
+<blockquote>
+<p>异步: 通信之间没有任何优先级关系</p>
+<p>同步: 上一次通信完成,下一次才可以继续</p>
+<p>在代码中,如果发的是异步请求,那么发送请求后面的代码不需要等待请求完成再执行</p>
+<p>如果是同步,则必须等待请求完成才能执行后面的代码</p>
+</blockquote>
+<h2><span id="二-使用">二. 使用</span></h2><h3><span id="1-创建xmlhttprequest对象">1. 创建XMLHttpRequest对象()</span></h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xhr = <span class="keyword">new</span> XMLHttpRequest();</span><br></pre></td></tr></table></figure>
 
+<h3><span id="2-用这个对象向服务器发送请求">2. 用这个对象向服务器发送请求</span></h3><p>调用XHR的<code>open</code>和<code>send</code>方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//规定请求的类型、URL 以及是否异步处理请求。</span></span><br><span class="line">xhr.open(<span class="string">"GET"</span>,<span class="string">"AJAXServlet"</span>,<span class="literal">true</span>);<span class="comment">//</span></span><br><span class="line"><span class="comment">//参数</span></span><br><span class="line"><span class="comment">//method = 请求类型,GET,POST</span></span><br><span class="line"><span class="comment">//url = 请求地址,可以带上请求参数</span></span><br><span class="line"><span class="comment">//async = 是否为异步请求(true为异步,默认为true)</span></span><br><span class="line"><span class="comment">//username,password已经不用了</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//发送请求</span></span><br><span class="line">xhr.send(<span class="literal">null</span>);</span><br><span class="line"><span class="comment">//参数: 请求体,仅用于post请求(在tomcat记了什么叫请求体)</span></span><br><span class="line">xmlhttp.send(<span class="string">"fname=Bill&amp;lname=Gates"</span>);</span><br></pre></td></tr></table></figure>
+
+<h3><span id="5-用监听事件绑定">5. 用监听事件绑定</span></h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onclick</span>=<span class="string">"ajaxRequest();"</span>&gt;</span>发送ajax请求<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后把上面的内容和下面接收响应的内容放在函数里</p>
+<h3><span id="4-接收响应数据">4. 接收响应数据</span></h3><p>如果想要获得来自服务器的相应,请使用XMLHttpRequest的<code>responseText</code>或<code>responseXML</code>属性</p>
+<p><span style="color:red">必须在响应完成接收</span></p>
+<p><strong>responseText</strong>: 获得字符串形式的相应数据</p>
+<p><strong>responseXML</strong>: 获得XML形式的响应数据</p>
+<h4><span id="41-监控响应状态">4.1 监控响应状态</span></h4><ul>
+<li>什么时候知道响应完成接收</li>
+</ul>
+<p>几个概念: </p>
+<p>xhr的<code>status</code>属性: 200或者404,响应状态码</p>
+<p>xhr的<code>onreadystatechange</code>事件: 在readyState变化时触发</p>
+<p>XHR的<code>readyState属性</code>: </p>
+<blockquote>
+<p>0: 请求未初始化</p>
+<p>1: 服务器连接已经建立</p>
+<p>2: 请求已经被接收</p>
+<p>3: 请求处理中</p>
+<p>4: 请求已完成</p>
+</blockquote>
+<h4><span id="42-接收响应">4.2 接收响应</span></h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">xhr.onreadystatechange = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">			<span class="keyword">if</span>(xhr.readyState == <span class="number">4</span> &amp;&amp; xhr.status == <span class="number">200</span>)&#123;</span><br><span class="line">				alert(xhr.responseText);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="5-原生js用ajax的问题">5. 原生js用AJAX的问题</span></h3><ol>
+<li>兼容性差,创建XHR的方法多种多样,特别是IE5,6</li>
+<li>如果把async改成true,它监控不到onreadystatechange事件</li>
+</ol>
+<h2><span id="三-jquery使用">三. jQuery使用</span></h2><p>js发送ajax麻烦还有问题,不如用无敌的<code>jQurey</code></p>
+<h3><span id="1-get请求">1. get请求</span></h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">返回值:XMLHttpRequest</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>(url,[data],[callback],[type])</span><br><span class="line">//url 可以带参数,也可以用data带参数</span><br><span class="line">//data: 可选的,参数</span><br><span class="line">//callback: 回调函数,可以传参数,实参为返回的响应</span><br><span class="line">//type: 响应数据是什么类型,默认为_default</span><br><span class="line">	//值: xml(不用了),html,script,json,text,_default</span><br><span class="line">	//xml和html: 接收对象为dom对象</span><br><span class="line">	//json: 接收对象为js对象(json转变而成)</span><br><span class="line">	//text: 文本</span><br></pre></td></tr></table></figure>
+
+<p>实例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//这data就是响应的内容,对应上面的xhr.responseText</span></span><br><span class="line">$.<span class="keyword">get</span>("AJAXServlet",function(data)&#123;</span><br><span class="line">	alert(data);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">$.<span class="keyword">get</span>("test.php", &#123; name: <span class="string">"John"</span>, <span class="attr">time</span>: <span class="string">"2pm"</span> &#125; );</span><br><span class="line"><span class="comment">//无论怎么传参,最终的参数都加在url上.因为是get请求</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>响应json字符串时</strong>:</p>
+<ul>
+<li><p>将type设置为<code>&quot;json&quot;</code>可以直接接收<strong>转换完的对象</strong></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">$.<span class="keyword">get</span>("jqueryServlet?method=getUrl&amp;t=" + Math.random(),function(data)&#123;</span><br><span class="line">	alert(data); <span class="comment">//[object Object]</span></span><br><span class="line">	<span class="built_in">console</span>.log(data);</span><br><span class="line">&#125;,<span class="string">"json"</span>);</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>或者干脆用<code>$.getJSON</code>,就是不用写”json”,其他都一样</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3><span id="2-post请求">2. post请求</span></h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">返回值:XMLHttpRequest</span><br><span class="line">jQuery.post(url, [data], [callback], [type])</span><br><span class="line"><span class="comment">//这就是上面的用法</span></span><br><span class="line">    <span class="comment">//url上带着的数据照样传</span></span><br><span class="line">    <span class="comment">//data里的数据放在请求体</span></span><br></pre></td></tr></table></figure>
+
+<h3><span id="3-ajax请求">3. ajax请求</span></h3><p><code>$.ajax</code>是jquery中最底层的ajax请求方法,上面的$.get和$.post都只是对这个函数的包装</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(url,[settings])</span><br><span class="line"><span class="comment">//用settings进行详细设置(url都可以写在配置项里,并省略)</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>使用的意义</p>
+<ul>
+<li>get和post请求出现404之类的错误,不会有任何反应</li>
+</ul>
+</li>
+<li><p><strong>settings</strong>: 所有的选项都是可选的</p>
+<ul>
+<li>有用的属性: </li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><strong>属性</strong></th>
+<th><strong>作用</strong></th>
+<th><strong>类型</strong></th>
+<th><strong>默认值</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>type</strong></td>
+<td>请求方式,</td>
+<td>String(GET,POST,PUT,DE:ETE)</td>
+<td>GET</td>
+</tr>
+<tr>
+<td><strong>url</strong></td>
+<td>请求地址</td>
+<td>String</td>
+<td>当前页</td>
+</tr>
+<tr>
+<td><strong>data</strong></td>
+<td>发送到服务器的数据,将自动转换为请求字符串给事<br>GET加在URL后<br>如果为数组,jq自动帮你分成好几个</td>
+<td>Object,String</td>
+<td>无</td>
+</tr>
+<tr>
+<td><strong>async</strong></td>
+<td>是否异步</td>
+<td>Boolean</td>
+<td>true(异步)</td>
+</tr>
+<tr>
+<td><strong>success(data, textStatus, jqXHR)</strong></td>
+<td>请求成功后的回调函数,可以只用data接收</td>
+<td>function/array</td>
+<td></td>
+</tr>
+<tr>
+<td><strong>error(XMLHttpRequest, textStatus, errorThrown)</strong></td>
+<td>失败的回调函数,后面参数是错误信息和捕获的错误对象</td>
+<td>function</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<ul>
+<li><p>实例:</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">$.ajax(&#123;</span><br><span class="line">	url:<span class="string">"jqueryServlet2?method=getUrlData&amp;t="</span> + <span class="built_in">Math</span>.random(),</span><br><span class="line">	type:<span class="string">"POST"</span>,</span><br><span class="line">	data:&#123;<span class="string">"name"</span>:<span class="string">"高三"</span>,<span class="string">"age"</span>:<span class="number">18</span>&#125;,</span><br><span class="line">    <span class="comment">//data:"name=zhangsan&amp;age=18,"</span></span><br><span class="line">	success:<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</span><br><span class="line">		alert(data);</span><br><span class="line">	&#125;,</span><br><span class="line">	error:<span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</span><br><span class="line">		alert(<span class="string">"wrong"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+<h3><span id="4-ajax请求提交表单表单序列化">4. ajax请求提交表单(表单序列化)</span></h3><p>返回值:String</p>
+<p><code>serialize()</code><br>序列表表格内容为字符串。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> forms = $(<span class="string">"#forms"</span>).serialize();</span><br><span class="line">alert(forms);</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">data: $(&quot;#forms&quot;).serialize(),</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span><br />
+            <span id="busuanzi_container_page_pv" style="">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/10/26/AJAX/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/25/mysqltcl/" class="archive-article-date">
-  	<time datetime="2020-10-25T09:45:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-25</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/10/25/mysqltcl/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Mysql的事务控制</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/25/mysqltcl/">Mysql的事务控制</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">AJAX</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.1.</span> <span class="toc-text">一. 是啥</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.1.1.</span> <span class="toc-text">1. 是啥</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.1.2.</span> <span class="toc-text">2. 交互</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.2.</span> <span class="toc-text">二. 使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.1.</span> <span class="toc-text">1. 创建XMLHttpRequest对象()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.2.</span> <span class="toc-text">2. 用这个对象向服务器发送请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.3.</span> <span class="toc-text">5. 用监听事件绑定</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.4.</span> <span class="toc-text">4. 接收响应数据</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#"><span class="toc-number">1.2.4.1.</span> <span class="toc-text">4.1 监控响应状态</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#"><span class="toc-number">1.2.4.2.</span> <span class="toc-text">4.2 接收响应</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.2.5.</span> <span class="toc-text">5. 原生js用AJAX的问题</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.3.</span> <span class="toc-text">三. jQuery使用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.1.</span> <span class="toc-text">1. get请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.2.</span> <span class="toc-text">2. post请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.3.</span> <span class="toc-text">3. ajax请求</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">1.3.4.</span> <span class="toc-text">4. ajax请求提交表单(表单序列化)</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -257,8 +505,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
