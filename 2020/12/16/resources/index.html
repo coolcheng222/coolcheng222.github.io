@@ -6,15 +6,31 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Tag: 未完成 | Sealll.blog</title>
+  <title>从mybatis找不到映射文件 到 ClassLoader找不到类路径资源的探索 | Sealll.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sealll.blog">
-<meta property="og:url" content="http://yoursite.com/tags/%E6%9C%AA%E5%AE%8C%E6%88%90/index.html">
+  <meta name="description" content="一. 环境介绍 jdk version “13.0.2” 2020-01-14 eclipse 2019-12 未使用maven 工程: 普通java工程,非web工程  其他注意点:  jdk8及以下出现的类似问题不在本文讨论范围内">
+<meta property="og:type" content="article">
+<meta property="og:title" content="从mybatis找不到映射文件 到 ClassLoader找不到类路径资源的探索">
+<meta property="og:url" content="http://yoursite.com/2020/12/16/resources/index.html">
 <meta property="og:site_name" content="Sealll.blog">
+<meta property="og:description" content="一. 环境介绍 jdk version “13.0.2” 2020-01-14 eclipse 2019-12 未使用maven 工程: 普通java工程,非web工程  其他注意点:  jdk8及以下出现的类似问题不在本文讨论范围内">
 <meta property="og:locale" content="ch">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216141409018.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216141947453.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216142357911.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216142923901.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216143051002.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216144710216.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/%20image-20201216144824855.png">
+<meta property="og:image" content="http://yoursite.com/2020/12/16/resources/image-20201216145254766.png">
+<meta property="article:published_time" content="2020-12-16T06:00:00.000Z">
+<meta property="article:modified_time" content="2020-12-16T06:59:53.889Z">
 <meta property="article:author" content="sealll">
+<meta property="article:tag" content="早期作品">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="模块化">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://yoursite.com/2020/12/16/resources/image-20201216141409018.png">
   
   
     <link rel="icon" href="/favicon.png">
@@ -146,36 +162,154 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-resources" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/20/weiji/" class="archive-article-date">
-  	<time datetime="2020-07-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-20</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/20/weiji/">微机系统</a>
+    <h1 class="article-title" itemprop="name">
+      从mybatis找不到映射文件 到 ClassLoader找不到类路径资源的探索
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2020/12/16/resources/" class="archive-article-date">
+  	<time datetime="2020-12-16T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
+</a>
+              <br/><small id="busuanzi_container_page_pv" style="font-size: 10px">
+                  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+              </small>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="一-环境介绍">一. 环境介绍</span></h2><ul>
+<li>jdk version “13.0.2” 2020-01-14</li>
+<li>eclipse 2019-12</li>
+<li>未使用maven</li>
+<li>工程: 普通java工程,非web工程</li>
+</ul>
+<p>其他注意点:</p>
+<ul>
+<li>jdk8及以下出现的类似问题不在本文讨论范围内</li>
+</ul>
+<a id="more"></a>
+
+<h2><span id="二-问题现象">二. 问题现象</span></h2><p>项目目录结构如图</p>
+<p><img src="/2020/12/16/resources/image-20201216141409018.png" alt="image-20201216141409018"></p>
+<ol>
+<li><p>mybatis的mappers使用package引入映射,但是却找不到dao包下的xml文件</p>
+</li>
+<li><p>鉴于mybatis底层的Resources获取资源时采用的是<code>classLoader.getResourceAsStream()</code>,所以在</p>
+<p>Main.java中使用classLoader获取com.sealll.dao下的文件,也是找不到</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Main.java</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">		InputStream resourceAsStream = Main<span class="class">.<span class="keyword">class</span></span></span><br><span class="line">				.getClassLoader().getResourceAsStream("com/sealll/dao/EmployeeDao.xml");</span><br><span class="line">		System.out.println(<span class="keyword">new</span> String(resourceAsStream.readAllBytes()));<span class="comment">//报空指针异常</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>前往该项目的bin目录下查看,EmployeeDao.xml又好好的躺在dao下</li>
+</ol>
+<p><img src="/2020/12/16/resources/image-20201216141947453.png" alt="image-20201216141947453"></p>
+<ol start="4">
+<li><p>向dao包增加各种文件,并逐个获取,结果如下: 只能找到.class文件,其他文件我们的classLoader全都视而不见</p>
+<p><img src="/2020/12/16/resources/image-20201216142357911.png" alt="image-20201216142357911"></p>
+</li>
+<li><p>来到bin目录,用java命令运行Main找EmployeeDao.xml却能正常的获取</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">E:\codes\javas\test6\bin&gt; java com.sealll.main.Main</span><br><span class="line">&lt;?xml version=<span class="string">"1.0"</span> encoding=<span class="string">"UTF-8"</span>?&gt;</span><br></pre></td></tr></table></figure>
+
+<h2><span id="三-问题分析">三. 问题分析</span></h2><h3><span id="1-探究eclipse运行项目的方式">1. 探究eclipse运行项目的方式</span></h3><p>既然直接用java.exe运行能找到,那eclipse一定用了特别的方式来运行我们的Main.class</p>
+<ul>
+<li><p>如何查看eclipse运行java的command</p>
+<ul>
+<li><p>给主程序(不是主程序也行)设置断点,debug并打开debug视图</p>
+<p><img src="/2020/12/16/resources/image-20201216142923901.png" alt="image-20201216142923901"></p>
+</li>
+<li><p>在左边debug视窗看到类似上图的样子,对准我这边focus的Main.main右键选择属性</p>
+</li>
+<li><p>打开属性就能看到eclipse是用什么命令在运行Main.class了</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/12/16/resources/image-20201216143051002.png" alt="image-20201216143051002"></p>
+<ul>
+<li>要素提取:<ul>
+<li><code>javaw.exe</code>: 可以简单理解为不用控制台的java.exe,在这个例子中和java.exe行为基本一致,后面我们用java.exe来模拟</li>
+<li><code>-p &lt;模块路径&gt;</code>: 可以看到这里-p把我们项目的bin目录和我们加入build path的jar包都加入到了模块路径</li>
+<li><code>-m &lt;模块&gt;[/&lt;主类&gt;]</code>: 指定要运行的模块主函数</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>-p和-m都是jdk9模块化引入的选项</p>
+</blockquote>
+<p>这里eclipse没有直接使用<code>java 主类</code>的形式,而是采用了jigsaw的<code>java -p xxx -m 模块/主类</code>的形式运行,我们再来到bin目录模拟一下</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># jar包对当前运行没有影响,所以不导入了</span></span><br><span class="line">E:\codes\javas\test6\bin&gt; java -p E:\codes\javas\test6\bin; -m test6/com.sealll.main.Main</span><br><span class="line"></span><br><span class="line">Exception <span class="keyword">in</span> thread <span class="string">"main"</span> java.lang.NullPointerException</span><br><span class="line">        at test6/com.sealll.main.Main.main(Main.java:10)</span><br></pre></td></tr></table></figure>
+
+<p>果然引入了模块系统就报异常了.</p>
+<p>结论: <strong>模块系统jigsaw的锅.</strong></p>
+<h2><span id="四-解决方案">四. 解决方案</span></h2><p>这个问题我已经是第二次遇到了,上一次被坑的直接换用idea,百度也百度不到,谷歌只找到类似的问题却没有解决方案. 这次气的头铁就来自己探索了.</p>
+<h3><span id="1-换jdk8">1. 换jdk8</span></h3><p>没有模块系统解决100%的问题,什么spring没有requires,junit没有requires都省了</p>
+<p>而且现在主流环境也是8.0及更早,越早换越好</p>
+<h3><span id="2-换用idea">2. 换用idea</span></h3><p>其实大可不必,不过我第一次确实是这么解决的</p>
+<h3><span id="3-删除moudle-infojava创建的时候不添加moudle-infojava">3. 删除moudle-info.java/创建的时候不添加moudle-info.java</span></h3><p>效果立竿见影,只要对准moudle-info.java来一个delete,立马解决问题</p>
+<p><img src="/2020/12/16/resources/image-20201216144710216.png" alt="image-20201216144710216"></p>
+<p>或者干脆在创建的时候就不要带它,创建工程时点一下next,然后取消勾选</p>
+<img src="/2020/12/16/resources/ image-20201216144824855.png" alt="image-20201216144824855" style="zoom:50%;">
+
+<h3><span id="4-不能动moudle-infojava怎么办">4. 不能动moudle-info.java怎么办</span></h3><p>其实问题的根源就在于你的模块没有把资源对外开放.</p>
+<ul>
+<li><p>在moudle-info.java中开放com.sealll.dao包即可</p>
+<ul>
+<li><p><code>exports</code>的力度不够,要用<code>opens</code></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">module</span> test6 &#123;</span><br><span class="line">	opens com.sealll.dao;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="/2020/12/16/resources/image-20201216145254766.png" alt="image-20201216145254766"></p>
+<h2><span id="五-总结">五. 总结</span></h2><p>模块化搞得真的有点麻烦,很多东西需要额外加一句exports,opens,requires</p>
+<p>因为这原因出现bug上网查又查不到,会浪费了很多时间.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span><br />
+            <span id="busuanzi_container_page_pv" style="">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,29 +319,129 @@
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">未完成</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
         		</li>
       		 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">期末考试</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">模块化</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2020/12/16/resources/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2020/10/26/AJAX/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">AJAX</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">一. 环境介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">二. 问题现象</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">三. 问题分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text">1. 探究eclipse运行项目的方式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">四. 解决方案</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">4.1.</span> <span class="toc-text">1. 换jdk8</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">4.2.</span> <span class="toc-text">2. 换用idea</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">4.3.</span> <span class="toc-text">3. 删除moudle-info.java&#x2F;创建的时候不添加moudle-info.java</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">4.4.</span> <span class="toc-text">4. 不能动moudle-info.java怎么办</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text">五. 总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
+        </div>
+        
+    </div>
+</aside>
+
+
+
   
 
-    
+  
+
+  
+
+  
+
+  
 
 
           </div>
@@ -234,9 +468,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
