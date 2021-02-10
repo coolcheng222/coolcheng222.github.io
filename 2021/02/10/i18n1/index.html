@@ -6,14 +6,21 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>Archives | Sealll.blog</title>
+  <title>(1.5版本springboot)国际化basename不能用.分隔的问题 | Sealll.blog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Sealll.blog">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="一. 问题简介在使用springboot1.5.9做国际化的时候, 配置spring.message.basename的值只能为”xxx&#x2F;xx”而不能为”xxx.xx”,否则国际化失效 二. 环境介绍jdk13(在本文中可以视作jdk8,表现没有差别) maven3.6.3 idea2020.1 springboot1.5.9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(1.5版本springboot)国际化basename不能用.分隔的问题">
+<meta property="og:url" content="http://yoursite.com/2021/02/10/i18n1/index.html">
 <meta property="og:site_name" content="Sealll.blog">
+<meta property="og:description" content="一. 问题简介在使用springboot1.5.9做国际化的时候, 配置spring.message.basename的值只能为”xxx&#x2F;xx”而不能为”xxx.xx”,否则国际化失效 二. 环境介绍jdk13(在本文中可以视作jdk8,表现没有差别) maven3.6.3 idea2020.1 springboot1.5.9">
 <meta property="og:locale" content="ch">
+<meta property="article:published_time" content="2021-02-10T06:44:50.065Z">
+<meta property="article:modified_time" content="2021-02-10T07:41:58.391Z">
 <meta property="article:author" content="sealll">
+<meta property="article:tag" content="早期作品">
+<meta property="article:tag" content="java">
+<meta property="article:tag" content="旧版springboot">
 <meta name="twitter:card" content="summary">
   
   
@@ -146,36 +153,119 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-i18n1" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2021/02/10/i18n1/" class="archive-article-date">
-  	<time datetime="2021-02-10T06:44:50.065Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-10</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/10/i18n1/">(1.5版本springboot)国际化basename不能用.分隔的问题</a>
+    <h1 class="article-title" itemprop="name">
+      (1.5版本springboot)国际化basename不能用.分隔的问题
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2021/02/10/i18n1/" class="archive-article-date">
+  	<time datetime="2021-02-10T06:44:50.065Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-10</time>
+</a>
+              <br/><small id="busuanzi_container_page_pv" style="font-size: 10px">
+                  本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+              </small>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2><span id="一-问题简介">一. 问题简介</span></h2><p>在使用springboot1.5.9做国际化的时候, 配置<code>spring.message.basename</code>的值只能为”xxx/xx”而不能为”xxx.xx”,否则国际化失效</p>
+<h2><span id="二-环境介绍">二. 环境介绍</span></h2><p>jdk13(在本文中可以视作jdk8,表现没有差别)</p>
+<p>maven3.6.3</p>
+<p>idea2020.1</p>
+<p>springboot1.5.9</p>
+<a id="more"></a>
+
+<h2><span id="三-问题研究">三. 问题研究</span></h2><h3><span id="1-为什么国际化失效">1. 为什么国际化失效</span></h3><p>Springboot在1.5.x时做国际化对应的自动配置类为<code>MessageSourceAutoConfiguration</code></p>
+<p>类上有两个<code>@Conditional</code>系列的注解,一个是要求容器中没有MessageSource,一个是要求配置的baseName找得到对应资源. </p>
+<p>在springboot1.5.9中,用xxx.xx形式的basename是找不到资源的,所以这个自动配置类没有通过Conditional的核验,便没有被装配进容器</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@ConditionalOnMissingBean</span>(value = MessageSource<span class="class">.<span class="keyword">class</span>, <span class="title">search</span> </span>= SearchStrategy.CURRENT)</span><br><span class="line"><span class="meta">@AutoConfigureOrder</span>(Ordered.HIGHEST_PRECEDENCE)</span><br><span class="line"><span class="meta">@Conditional</span>(ResourceBundleCondition<span class="class">.<span class="keyword">class</span>) //这里要求配置的<span class="title">baseName</span>找得到对应资源. </span></span><br><span class="line"><span class="class">@<span class="title">EnableConfigurationProperties</span></span></span><br><span class="line"><span class="class">@<span class="title">ConfigurationProperties</span>(<span class="title">prefix</span> </span>= <span class="string">"spring.messages"</span>)</span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MessageSourceAutoConfiguration</span> </span>&#123;</span><br></pre></td></tr></table></figure>
+
+<h3><span id="2-为什么找不到资源">2. 为什么找不到资源</span></h3><p>先看看basename的介绍</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">* Comma-separated list of basenames (essentially a fully-qualified classpath</span></span><br><span class="line"><span class="comment">* location), each following the ResourceBundle convention with relaxed support for</span></span><br><span class="line"><span class="comment">* slash based locations. If it doesn't contain a package qualifier (such as</span></span><br><span class="line"><span class="comment">* "org.mypackage"), it will be resolved from the classpath root.</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"><span class="keyword">private</span> String basename = <span class="string">"messages"</span>;</span><br></pre></td></tr></table></figure>
+
+<p><u>If it doesn’t contain a package qualifier (such as”org.mypackage”), it will be resolved from the classpath root.</u></p>
+<p>这里告诉我们如果没有以<code>.</code>分隔的包界限符,basename就是从类路径开始解析(的路径)</p>
+<p>也就是说理论上可以用<code>.</code>分隔,但实际上1.5.9没有给出方案. 我们分析一下内部代码,看看解析过程中发生了什么.</p>
+<h3><span id="3-resourcebundlecondition的行为">3. ResourceBundleCondition的行为</span></h3><blockquote>
+<p><strong>matches:</strong></p>
+<p>上层会调用matches方法,根据返回值来判断@Conditional的效果;在ResourceBundleCondition中,最终的返回值是由matches调用 getMatchOutcome返回的OutCome决定的</p>
+<blockquote>
+<p><strong>getMatchOutcome — getMatchOutcomeForBasename:</strong></p>
+<p> 这一过程中getMatchOutcome将basename传递给getMatchOutcomeForBasename</p>
+<p>后者再将basename传递给<strong>getResource</strong>,让其解析并返回资源</p>
+<p>如果找不到资源,就返回一个outcome告知上层无法匹配,由matches方法返回false</p>
+<p>如果找到资源,就返回一个报喜的outcome</p>
+</blockquote>
+</blockquote>
+<p>上文提到的<code>getResource</code>方法才是这里问题的核心:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.5.9版本</span></span><br><span class="line"><span class="keyword">private</span> Resource[] getResources(ClassLoader classLoader, String name) &#123;</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        </span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PathMatchingResourcePatternResolver(classLoader)</span><br><span class="line">            .getResources(<span class="string">"classpath*:"</span> + name + <span class="string">".properties"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO_RESOURCES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>其行为:</p>
+<ul>
+<li>将basename拼串为<code>classpath*:${basename}.properties</code>,然后传递给下一个方法</li>
+<li>然后classLoader用<code>${basename}.properties</code>这个字符串去类路径下找资源</li>
+</ul>
+<blockquote>
+<p>简单介绍一下下一个方法: 就是把<u>classpath*:</u>去掉,再看看有没有通配符,最后把字符串交给classLoader去寻找资源;所以在这里可以直接考虑ClassLoader的行为</p>
+</blockquote>
+</li>
+</ul>
+<p>但是ClassLoader的一系列方法最多把<code>\</code>改成<code>/</code>, 而不会去把<code>.</code>改成<code>/</code>,</p>
+<p>其本身又不会分析用<code>.</code>分隔的路径,所以在basename中使用<code>.</code>分隔是不能找到对应的国际化资源文件的</p>
+<h2><span id="四-解决方案">四. 解决方案</span></h2><ol>
+<li>升级成<code>1.5.10</code></li>
+</ol>
+<p>问题很费脑子,但本质就这么简单,这应该就是早期版本的bug,然后在1.5.10修复了这个问题. </p>
+<p><del>我居然发现springboot里的bug了</del></p>
+<p>探究问题的时候我就在想为什么我们环境版本都差不多,为什么他能用<code>.</code>我只能用<code>\</code>,结果就是这么0.0.1版本的差距导致的</p>
+<p>看看1.5.10对<strong>getResources</strong>做了啥</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//1.5.10</span></span><br><span class="line"><span class="keyword">private</span> Resource[] getResources(ClassLoader classLoader, String name) &#123;</span><br><span class="line">    <span class="comment">//加了这一行,把 . 换成 / ,修复了这个bug</span></span><br><span class="line">    String target = name.replace(<span class="string">'.'</span>, <span class="string">'/'</span>);</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> PathMatchingResourcePatternResolver(classLoader)</span><br><span class="line">            .getResources(<span class="string">"classpath*:"</span> + target + <span class="string">".properties"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">catch</span> (Exception ex) &#123;</span><br><span class="line">        <span class="keyword">return</span> NO_RESOURCES;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>就replace了一下</p>
+<h2><span id="五-总结">五. 总结</span></h2><p>有些非常细小的问题能浪费人很多时间. 我动手动脑半天都解决不出来,都差点把这问题当成哲学问题了.泪目</p>
+<p>在排查问题的过程中,我怀疑过是jdk版本问题,也甚至怀疑过是idea版本的问题,因为springboot,maven这种版本就差不多,最多就差几个小版本. 查不出问题, 又不想就这么过去了. 后来看了看1.5.10的执行流程才明白, 他们偷偷在getResources加了一小行代码,让<code>.</code>分隔的basename变得可以解析.</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span><br />
+            <span id="busuanzi_container_page_pv" style="">
+        本文总阅读量<span id="busuanzi_value_page_pv"></span>次
+      </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -195,328 +285,119 @@
 		</ul>
 	</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
       
-        </div></section>
+
       
+
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/12/16/resources/" class="archive-article-date">
-  	<time datetime="2020-12-16T06:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-16</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/16/resources/">从mybatis找不到映射文件 到 ClassLoader找不到类路径资源的探索</a>
-    </h1>
-  
+      </div>
+    </span>
+  </div>
+</div>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">模块化</a>
-        		</li>
-      		
-		</ul>
-	</div>
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2021/02/10/i18n1/" alt="微信分享二维码">
+    </div>
+</div>
 
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/26/AJAX/" class="archive-article-date">
-  	<time datetime="2020-10-26T13:32:13.989Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-26</time>
-</a>
+<nav id="article-nav">
+  
+  
+    <a href="/2020/12/16/resources/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">从mybatis找不到映射文件 到 ClassLoader找不到类路径资源的探索</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/26/AJAX/">AJAX</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">1.</span> <span class="toc-text">一. 问题简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">2.</span> <span class="toc-text">二. 环境介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">3.</span> <span class="toc-text">三. 问题研究</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">3.1.</span> <span class="toc-text">1. 为什么国际化失效</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">3.2.</span> <span class="toc-text">2. 为什么找不到资源</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#"><span class="toc-number">3.3.</span> <span class="toc-text">3. ResourceBundleCondition的行为</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">4.</span> <span class="toc-text">四. 解决方案</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#"><span class="toc-number">5.</span> <span class="toc-text">五. 总结</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/10/25/mysqltcl/" class="archive-article-date">
-  	<time datetime="2020-10-25T09:45:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-10-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/10/25/mysqltcl/">Mysql的事务控制</a>
-    </h1>
+        
+    </div>
+</aside>
+
+
+
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">mysql</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/09/05/maven/" class="archive-article-date">
-  	<time datetime="2020-09-05T11:06:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-09-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/09/05/maven/">Maven打包安装遇到的问题</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/20/weiji/" class="archive-article-date">
-  	<time datetime="2020-07-19T16:00:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-20</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/20/weiji/">微机系统</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">未完成</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">期末考试</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/08/mavenbuild/" class="archive-article-date">
-  	<time datetime="2020-07-08T11:40:00.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-08</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/08/mavenbuild/">尝试用maven构建工程</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">maven</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">java</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">犯蠢集锦</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/07/06/github/" class="archive-article-date">
-  	<time datetime="2020-07-06T07:10:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-07-06</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/07/06/github/">git/github随笔</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">git</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">早期作品</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -543,8 +424,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
